@@ -124,7 +124,7 @@ do
         }
         else if(opcion != 5 && opcion != 6)
         {
-            Console.WriteLine($"El resultado de la {operacion} entre los numeros {num1} y {num2} es {resultado}");
+            Console.WriteLine($"El resultado de la {operacion} entre los numeros {num1} y {num2} es {resultado}");//Ejercicio 4 punto de string y num
         }
         Console.WriteLine("presione enter para continuar");
         Console.ReadLine();        
@@ -134,3 +134,147 @@ do
 }while(opcion != 7);
 
 //-------
+//Ejercicio 4 //
+
+string? frase = "";
+string? fraseSeg = "";
+string? fraseConcatenada = "";
+string? subcadena = "";
+string? palabraBuscada = "";
+Console.WriteLine("Ingrese la frase: ");
+frase = Console.ReadLine();
+Console.WriteLine($"La frase ingresada es: {frase}");
+Console.WriteLine($"Su longitud es de: {frase.Length} ");
+Console.WriteLine("Ingrese la segunda frase: ");
+fraseSeg = Console.ReadLine();
+fraseConcatenada = $"{frase} {fraseSeg}"; 
+Console.WriteLine($"La frase concatenada es: {fraseConcatenada}");
+subcadena = frase.Substring(1, 4);
+Console.WriteLine($"La subcadena es: {subcadena}");
+if (!string.IsNullOrWhiteSpace(frase))
+{
+    Console.WriteLine("\nRecorriendo la cadena caracter por caracter:");
+    foreach (char letra in frase)
+    {
+        Console.WriteLine($"=={letra}==");
+    }
+}
+Console.WriteLine("Ingrese la palabra buscada: ");
+palabraBuscada = Console.ReadLine();
+if (!string.IsNullOrWhiteSpace(frase) && !string.IsNullOrWhiteSpace(palabraBuscada))
+{
+    if (frase.Contains(palabraBuscada))
+    {
+        Console.WriteLine($"La palabra {palabraBuscada} si esta en la frase.");       
+    }
+    else
+    {
+        Console.WriteLine($"La palabra {palabraBuscada} no se encuentra en la frase ingresada.");
+    }
+
+}
+if (!string.IsNullOrWhiteSpace(frase))
+{
+    string? textoMayusculas = frase.ToUpper();
+    string? textoMinusculas = frase.ToLower();
+    Console.WriteLine($"Texto original:  {frase}");
+    Console.WriteLine($"En mayuscula:   {textoMayusculas}");
+    Console.WriteLine($"En minúsculas:   {textoMinusculas}");
+}
+if (!string.IsNullOrWhiteSpace(frase))
+{
+    string[] elementosSeparados = frase.Split(',');
+
+    Console.WriteLine($"Se detectaron {elementosSeparados.Length} elementos en la cadena:");
+
+    for (int i = 0; i < elementosSeparados.Length; i++)
+    {
+        string elemento = elementosSeparados[i].Trim(); 
+        Console.WriteLine($"[Elemento {i + 1}] -> {elemento}");
+    }
+}
+Console.WriteLine("Ingrese la ecuacion");
+string? ecuacion = Console.ReadLine();
+if (!string.IsNullOrWhiteSpace(ecuacion))
+{
+    ecuacion = ecuacion.Replace(" ", "");
+    char operador = ' ';
+    if (ecuacion.Contains('+'))
+    {
+         operador = '+';
+    }
+    else if (ecuacion.Contains('-'))
+    { 
+        operador = '-';
+    }
+    else if (ecuacion.Contains('*'))
+    {
+         operador = '*';
+    }
+    else if (ecuacion.Contains('/')) 
+    {
+        operador = '/';
+    }
+    if (operador == ' ')
+    {
+        Console.WriteLine("No se detecto un operador valido en la ecuacion.");
+    }
+    else
+    {
+        string[] partes = ecuacion.Split(operador);
+        if (partes.Length == 2)
+        {
+            double num3, num4;
+            bool esNum1Valido = double.TryParse(partes[0], out num3);
+            bool esNum2Valido = double.TryParse(partes[1], out num4);
+
+            if (esNum1Valido && esNum2Valido)
+            {
+                double resultado = 0;
+                bool operacionValida = true;
+
+                switch (operador)
+                {
+                    case '+':
+                        resultado = num3 + num4;
+                        break;
+                    case '-':
+                        resultado = num3 - num4;
+                        break;
+                    case '*':
+                        resultado = num3 * num4;
+                        break;
+                    case '/':
+                        if (num4 != 0)
+                        {
+                            resultado = num3 / num4;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Division indefinida.");
+                            operacionValida = false;
+                        }
+                        break;
+                }
+
+                if (operacionValida)
+                {
+                    Console.WriteLine($"Ecuacion procesada con exito:");
+                    Console.WriteLine($"Primer operando:  {num3}");
+                    Console.WriteLine($"Operador:         {operador}");
+                    Console.WriteLine($"Segundo operando: {num4}");
+                    Console.WriteLine($"El resultado de {ecuacion} es: {resultado}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Error: Uno o ambos componentes de la ecuacion no son numeros validos.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Error: La ecuacion debe ser simple");
+        }
+    }
+}
+
